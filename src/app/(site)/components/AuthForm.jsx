@@ -76,6 +76,14 @@ const AuthForm = () => {
                   <AuthSocialButton Icon={BsGoogle} onClick={() =>socialAction('google')} />
                 </div>
             </div>
+            <div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500">
+                <div>
+                  {variant === "LOGIN" ? "New to messanger?" : "Already have an account"}
+                </div>
+                <div onClick={toogleVariant} className="underline cursor-pointer" >
+                  {variant === "LOGIN" ? "Create and account" : "Login"}
+                </div>
+            </div>
         </div>
     </div>   
  );
