@@ -7,6 +7,8 @@ import { Button, Input } from "../../../components";
 import AuthSocialButton from "./AuthSocialButton"
 import {BsGithub, BsGoogle} from "react-icons/bs"
 import axios from "axios";
+import { toast } from "react-hot-toast";
+import { signIn} from "next-auth/react"
 
 const AuthForm = () => {
   const [variant, setVariant] = useState("LOGIN");
@@ -36,10 +38,26 @@ const AuthForm = () => {
 
     if (variant === "REGISTER") {
       axios.post("/api/register", data)
+      .catch(()=> toast.error("something went wrong"))
+      .finally(()=> setIsLoading(false))
     }
 
     if (variant === "LOGIN") {
       // next auth signin
+      signIn('credentials', {
+        ...data, 
+        redirect: false
+      })
+      .then((callback)=>{
+        if(callback?.error){
+          toast.error("Invalid credentials")
+        }
+
+        if(callback?.ok && !callback?.error){
+          toast.success("Success, Loged in")
+        }
+      })
+      .finally(()=>setIsLoading(false))
     }
   };
 
