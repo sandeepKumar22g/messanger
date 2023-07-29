@@ -32,3 +32,5 @@ const useRoutes = () => {
 
   return routes;
 };
+
+export default useRoutes
